@@ -9,6 +9,7 @@ std::string GenerateEmployeeCredentials(const std::string& employee_name,
   return "";
 }
 
+
 // PART 2
 
 bool IsValidDate(Date date) {

@@ -28,6 +28,9 @@
 //                                Test Cases //
 /////////////////////////////////////////////////////////////////////////////////////////////
 
+
+// PART 1
+
 TEST_CASE("Unexceptional", "[part_1]") {
   REQUIRE(GenerateEmployeeCredentials("Zulu", 22) ==
           "Zulu can access office number 22 with Badge Number 154 and Passkey "
@@ -113,6 +116,10 @@ TEST_CASE("ExceptionalSecretCode Exceptions", "[part_1]") {
     REQUIRE(GenerateEmployeeCredentials("Tyler", 100) ==
             "ExceptionalEmployeeBadgeNumber caused an unknown error.");
   }
+}
+
+// PART 2
+
 TEST_CASE("IsValidDateTrue", "[part_2][IsValidDate]") {
   REQUIRE(IsValidDate({10, 18, 1987}));
   REQUIRE(IsValidDate({2, 26, 3040}));

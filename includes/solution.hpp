@@ -7,6 +7,7 @@
 
 #include "exceptional.hpp"
 
+
 // PART 1
 
 // Returns a string of the form "[Employee Name] can access office number
@@ -16,7 +17,9 @@
 std::string GenerateEmployeeCredentials(const std::string& employee_name,
                                         int office_no);
 
+
 // PART 2
+
 
 // Data struct containing all the information to represent a date
 struct Date {
@@ -37,7 +40,7 @@ bool IsValidDate(Date date);
 // Runs through an instruction using the given starting value. If the
 // instruction is invalid or there is an arithmetic/range error, throws the
 // required exception.
-int ExecuteInstruction(Date date, Instruction instruction, int value);
+int ExecuteInstruction(Date date, const Instruction& instruction, int value);
 
 // Generates a password following the procedure for the given date with the
 // initial value.
