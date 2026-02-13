@@ -1,0 +1,148 @@
+<!-- <p>Define your agenda items here:</p> -->
+
+<h3>Agenda</h3>
+<ul>
+  <li>(x minutes) Part 1 </li>
+  <li>(x minutes) Part 2 </li>
+</ul>
+
+<!-- <p>Replace XX/XX with the date of the session!</p> -->
+
+<p>To create your personal repository for this assignment, click on the button below to access the template repository.
+Select <b>"Use this template"</b> from the top-right corner, followed by <b>"Create a new repository"</b>. In the dialog that pops up, 
+set yourself as the owner, enter in "extra-practice-5/exceptional_exceptions_02" as the repository name, and set the visibility to <b>Private</b>. 
+You are now ready to clone!
+</p>
+
+<!-- <p>Put the link to the activity repo in the href attribute!</p> -->
+
+<div class="text-center my-1">
+     <a class="btn btn-lg btn btn-success" href="TODO" target="_blank">
+              <small class="me-2"><i class="fas fa-external-link-alt"></i></small>Template Repository</a></div>
+
+
+<!-- <p>Start of Prompt below:</p> -->
+
+<h3>Part 1</h3>
+<p>
+  As a software engineer for a startup, you're in charge of writing software to generate badge numbers and passcodes for the flood of new employess!
+  Sounds like a big task, but good news! Since you're fresh out of college, senior developers at the company have set you up with an existing library
+  from <i>Exceptional Software LLC</i>. As with most libraries, you aren't given the source code, but you have the header file and a compiled binary.
+  You'll have to implement code for your company's application using these existing utilities, and being sure to catch all of their mysterious exceptions.
+</p>
+
+Complete the function GenerateEmployeeCredentials
+
+
+<p>Define the following function:</p>
+<div class="box">
+<pre><code class="language-cpp">std::string GenerateEmployeeCredentials(const std::string& employee_name,
+                                        int office_no);
+</code></pre>
+</div>
+<p>This function returns a string of the form "[Employee Name] can access office number [Office Number] with Badge Number [Badge Number] and Passkey [Secret Code]."</p>
+
+<p>Your implementation must call both existing functions provided in <code class="language-cpp">exceptional.hpp</code>. When a seed is required, use <mark><code class="language-cpp">office_no + 5</code></mark>.
+</p>
+
+<p>Important notes:
+  <ul>
+    <li>Call ExceptionalEmployeeBadgeNumber before ExceptionalSecretCode and catch exceptions for each function <i>independently</i>.</li>
+    <li>You must explicitly catch the following exceptions: <code class="language-cpp">std::invalid_argument</code>, <code class="language-cpp">std::out_of_range</code>, <code class="language-cpp">std::runtime_error</code>, <code class="language-cpp">std::logic_error</code></code>.
+    When one of these exceptions is thrown, your function should instead return a string of the form: "[Offending Function] threw [Exception Name] with message: [Exception Text]". For example, "ExceptionalSecretCode threw std::logic_error with message: Didn't think of
+  that!"</li>
+      <li>You should also include a catch-all handler, which if triggered should cause your function to return "[Offending Function] caused an unknown error."</li>
+
+  </ul>
+</p>
+
+
+<h3>Part 2</h3>
+<p>
+  Now that you've shown your ability to effectively use other people's code, your boss decides that your turn to write the library. They want a super secure password each day that is generated based on a set of instructions and the date.
+</p>
+
+<p>You're given two helpful structs that package information about the data and instructions for generating the password.</p>
+
+<p>The <code class="language-cpp">Date</code> struct stores the month, day, and year.</p>
+
+<div class="box">
+<pre><code class="language-cpp">struct Date {
+  int month;
+  int day;
+  int year;
+};
+</code></pre>
+</div>
+
+<p>The <code class="language-cpp">Instruction</code> struct stores both the operation and an operand to apply it to. A valid operation can be any of the characters <code class="language-cpp">{'+', '-', '/', '*', '%'}</code> which corresponds to the same arithmetic operator. The operand can be either the strings <code class="language-cpp">"month"</code>, <code class="language-cpp">"day"</code>, or <code class="language-cpp">"year"</code> which would be replaced by the appropriate value from a <code class="language-cpp">Date</code> object or an integer stored as a string.</p>
+
+<div class="box">
+<pre><code class="language-cpp">struct Instruction {
+  char operation;
+  std::string operand;
+};
+</code></pre>
+</div>
+
+<p>First, work on the helper function <code class="language-cpp">IsValidDate</code> which checks if a given date is valid. Since all the values are represented as their integer counterparts, ensure that the following:
+  <ul>
+    <li>The month is between <code class="language-cpp">1</code> and <code class="language-cpp">12</code>.</li>
+    <li>The day must be valid based on the length of the month.</li>
+    <li>For February, make sure to keep leap years in mind and remember that centuries are not leap years unless divisible by four hundred.</li>
+    <li>Ensure that the year is at least <code class="language-cpp">1970</code>.</li>
+  </ul>  
+</p>
+
+<div class="box">
+<pre><code class="language-cpp">bool IsValidDate(Date date);
+</code></pre>
+</div>
+
+<p>Next, work on the <code class="language-cpp">ExecuteInstruction</code> function which given an input integer follows an instruction to apply an arithmetic operation to it and substituting in the operand values using the date as per the instruction. You should return the result as</p>
+
+<div class="box">
+<pre><code class="language-cpp">&lt;value&gt; &lt;operation&gt; &lt;operand&gt;
+</code></pre>
+</div>
+
+<p>You may assume that the date is valid, but you must check for errors in the instruction. If the operation or operand is invalid as specified above, throw an <code class="language-cpp">invalid_argument</code> exception. Also check that the arithmetic operation is valid. If performing a division or modulo by zero, throw a <code class="language-cpp">domain_error</code> exception. We also want to ensure that the numbers don't get too large, so if the absolute value of the output is a million or more, throw a <code class="language-cpp">range_error</code> exception.</p>
+
+<div class="box">
+<pre><code class="language-cpp">int ExecuteInstruction(Date date, Instruction instruction, int value);
+</code></pre>
+</div>
+
+<p>Finally, put all of this together in the function <code class="language-cpp">PasswordFromDate</code>. This function should check if the given date is valid and throw an <code class="language-cpp">illegal_argument</code> exception if not. Then, using the value from <code class="language-cpp">salt</code> as an initial value, iterate through the instructions in <code class="language-cpp">procedure</code> and execute them step by step. Make sure to use the output of the previous step as the new input for calling <code class="language-cpp">ExecuteInstruction</code>. Once all the instructions are complete, return the final result.</p>
+
+<div class="box">
+<pre><code class="language-cpp">int PasswordFromDate(Date date,
+                     const std::vector<Instruction>& procedure,
+                     int salt);
+</code></pre>
+</div>
+
+<h3>How to compile and run driver.cc</h3>
+<p>Before compiling and running driver, make sure to implement <code class="language-cpp">solution.cc</code>.</p>
+<p>To compile the program, use:</p>
+<pre class="command-line" data-prompt="[coder@localhost] ~ $">
+<code class="language-bash">make exec</code></pre>
+<p>This will create an executable named <code class="language-cpp">exec</code> in your bin folder.</p>
+<p>To run the program, use</p>
+<pre class="command-line" data-prompt="[coder@localhost] ~ $">
+<code class="language-bash">./bin/exec</code></pre>
+
+
+<h3>How to compile and run tests.cc</h3>
+<p>To compile the program, use:</p>
+<pre class="command-line" data-prompt="[coder@localhost] ~ $">
+<code class="language-bash">make tests</code></pre>
+<p>This will create an executable named <code class="language-cpp">tests</code> in your bin folder.</p>
+<p>To run the program, use</p>
+<pre class="command-line" data-prompt="[coder@localhost] ~ $">
+<code class="language-bash">./bin/tests [part_1]</code></pre>
+
+
+
+
+<!-- <p>End of prompt here</p> -->
