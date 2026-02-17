@@ -112,9 +112,9 @@ TEST_CASE("ExceptionalSecretCode Exceptions", "[part_1]") {
 
   SECTION("Mystery Exception") {
     REQUIRE(GenerateEmployeeCredentials("Zach", 65) ==
-            "ExceptionalEmployeeBadgeNumber caused an unknown error.");
+            "ExceptionalSecretCode caused an unknown error.");
     REQUIRE(GenerateEmployeeCredentials("Tyler", 100) ==
-            "ExceptionalEmployeeBadgeNumber caused an unknown error.");
+            "ExceptionalSecretCode caused an unknown error.");
   }
 }
 
