@@ -110,7 +110,7 @@ Complete the function GenerateEmployeeCredentials
 <p>You may assume that the date is valid, but you must check for errors in the instruction. If the operation or operand is invalid as specified above, throw an <code class="language-cpp">invalid_argument</code> exception. Also check that the arithmetic operation is valid. If performing a division or modulo by zero, throw a <code class="language-cpp">domain_error</code> exception. We also want to ensure that the numbers don't get too large, so if the absolute value of the output is a million or more, throw a <code class="language-cpp">range_error</code> exception.</p>
 
 <div class="box">
-<pre><code class="language-cpp">int ExecuteInstruction(Date date, Instruction instruction, int value);
+<pre><code class="language-cpp">int ExecuteInstruction(Date date, const Instruction& instruction, int value);
 </code></pre>
 </div>
 
